@@ -67,10 +67,8 @@
                                                     <button onclick="return confirm('Are you sure?')" type="submit"
                                                         class="btn btn-sm btn-danger fw-semibold">Delete</button>
                                                 </form>
-
                                             </div>
                                         </td>
-
                                     </tr>
                                 @empty
                                     <div class="alert alert-warning">No categories found</div>
