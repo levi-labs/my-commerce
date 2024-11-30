@@ -73,14 +73,10 @@
                                 @empty
                                     <div class="alert alert-warning">No categories found</div>
                                 @endforelse
-
-
                             </tbody>
-
                         </table>
                         {{ $categories->links() }}
                     </div>
-
                 </div>
             </div>
         </div>
