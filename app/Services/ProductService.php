@@ -4,10 +4,18 @@ namespace App\Services;
 
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProductService
 {
 
+    public function hanldeProductImageUpload(&$data)
+    {
+        if (array_key_exists('image_url', $data)) {
+            $file = $data['image_url']->store('images', 'public');
+            $data['image_url'] = $file;
+        }
+    }
     public function getAllProducts($perpage = 10)
     {
         $products = DB::table('products')
@@ -24,12 +32,21 @@ class ProductService
 
     public function createProduct($data)
     {
+
+        // dd($data);
+
         return Product::create($data);
     }
 
     public function updateProduct($id, $data)
     {
         $product = Product::findOrFail($id);
+
+        if ($product->image_url) {
+            if (Storage::exists($product->image_url)) {
+                Storage::delete($product->image_url);
+            }
+        }
         $product->update($data);
         return $product;
     }

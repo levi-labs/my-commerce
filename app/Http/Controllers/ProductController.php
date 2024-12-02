@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -45,20 +46,28 @@ class ProductController extends Controller
     /******  8e36e27e-34bc-46e7-a25e-1effaf76a5f4  *******/
     public function store(ProductRequest $request)
     {
-        $this->productService->createProduct($request->all());
+        $data = $request->all();
+
+        $this->productService->hanldeProductImageUpload($data);
+        $this->productService->createProduct($data);
         return redirect()->route('product.index')->with('success', 'Product created successfully');
     }
 
     public function edit(Product $product)
     {
         $title = 'Edit Product';
+        $categories = Category::all();
         $product = $this->productService->getProductById($product->id);
-        return view('pages.product.edit', compact('title', 'product'));
+        return view('pages.product.edit', compact('title', 'product', 'categories'));
     }
 
     public function update(Product $product, ProductRequest $request)
     {
-        $this->productService->updateProduct($product->id, $request->all());
+        $data = $request->all();
+
+        $this->productService->hanldeProductImageUpload($data);
+
+        $this->productService->updateProduct($product->id, $data);
         return redirect()->route('product.index')->with('success', 'Product updated successfully');
     }
 

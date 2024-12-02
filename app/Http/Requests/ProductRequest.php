@@ -25,9 +25,28 @@ class ProductRequest extends FormRequest
             'name' => 'required|string|max:60',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|numeric|min:0',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'category_id' => 'required|exists:categories,id',
             'description' => 'required|string|max:2000',
         ];
+    }
+    /**
+     * Siapkan data untuk validasi.
+     * Ini akan dijalankan sebelum validasi dilakukan.
+     */
+    protected function prepareForValidation()
+    {
+        // Memeriksa dan menghapus titik pada harga (jika ada) sebelum validasi
+        if ($this->price) {
+            // Menghapus semua titik
+            $this->merge([
+                'price' => str_replace('.', '', $this->price),
+            ]);
+        }
+        // if (strpos($this->price, '.') === false) {
+        //     $this->merge([
+        //         'price' => $this->price . '.00',
+        //     ]);
+        // }
     }
 }

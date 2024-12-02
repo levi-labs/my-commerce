@@ -17,7 +17,7 @@
                     <hr>
                     <div class="row align-items-center">
                         <div class="col-md-4">
-                            <img src="{{ $product->image_url }}" alt="{{ $product->name }}">
+                            <img class="img-fluid" src="{{ $product->image_url }}" alt="{{ $product->name }}">
                         </div>
                         <div class="col-md-8">
                             <p><strong>Name:</strong> {{ $product->name }}</p>
