@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProductRequest extends FormRequest
@@ -21,14 +22,23 @@ class ProductRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules =  [
             'name' => 'required|string|max:60',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|numeric|min:0',
-            'image_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'category_id' => 'required|exists:categories,id',
             'description' => 'required|string|max:2000',
         ];
+
+        if ($this->isMethod('POST')) {
+            $rules['image_url'] = 'required|image|mimes:jpeg,png,jpg,gif|max:2048';
+        }
+
+        if ($this->isMethod('PUT')) {
+            $rules['image_url'] = 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048';
+        }
+
+        return $rules;
     }
     /**
      * Siapkan data untuk validasi.

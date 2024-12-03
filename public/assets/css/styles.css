@@ -3539,6 +3539,7 @@ fieldset:disabled .btn {
     -webkit-box-shadow: none;
     box-shadow: none;
 }
+
 .btn-primary {
     --bs-btn-color: #fff;
     --bs-btn-bg: #5d87ff;

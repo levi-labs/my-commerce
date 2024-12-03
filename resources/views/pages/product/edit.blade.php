@@ -3,7 +3,16 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title fw-semibold mb-4">{{ $title }}</h5>
+            <div class="d-flex align-items-center">
+                <div>
+                    <h5 class="mb-0 fw-semibold">{{ $title }}</h5>
+                </div>
+                <div class="ms-auto">
+                    <a href="{{ route('product.index') }}" class="btn btn-primary text-white fw-bold fs-4">
+                        <i class="ti ti-arrow-left me-1"></i>
+                    </a>
+                </div>
+            </div>
             <div class="card">
                 <div class="card-body">
                     <form action="{{ route('product.update', $product->id) }}" method="post" autocomplete="off"

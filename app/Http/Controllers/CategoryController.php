@@ -22,7 +22,7 @@ class CategoryController extends Controller
     {
         $title = 'Category Page';
 
-        $categories = $this->categoryService->getAllCategories();
+        $categories = $this->categoryService->getAllCategories(10);
 
         return view('pages.category.index', compact('title', 'categories'));
     }

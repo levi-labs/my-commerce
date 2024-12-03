@@ -12,11 +12,26 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
-                    <div class="row">
-                        <div class="col-md-6">
+                    <div class="row justify-content-between">
+                        <div class="col-md-4">
                             <a href="{{ route('product.create') }}" class="btn btn-primary text-white fw-bold fs-4">
                                 <i class="ti ti-plus me-1"></i>
                             </a>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <form action="{{ route('product.index') }}" method="GET">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" name="search" placeholder="Search">
+                                    <button class="btn btn-primary text-white fw-bold fs-4" type="submit">
+                                        <i class="ti ti-search me-1"></i>
+                                    </button>
+                                    <a href="{{ route('product.index') }}"
+                                        class="btn btn-gray text-dark fw-bold fs-4 mx-1"><i
+                                            class="ti ti-refresh me-1"></i></a>
+                                </div>
+
+                            </form>
+
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -56,6 +71,8 @@
                                         </td>
                                         <td class="border-bottom-0">
                                             <p class="mb-0 fw-normal">{{ $product->description }}</p>
+                                            <span
+                                                class="badge bg-dark fs-1 fw-normal my-2">{{ $product->category_name }}</span>
                                         </td>
                                         {{-- <td class="border-bottom-0">
                                             <h6 class="fw-semibold mb-0 fs-4">{{ $product->product_count }}</h6>
@@ -76,7 +93,11 @@
                                         </td>
                                     </tr>
                                 @empty
-                                    <div class="alert alert-warning">No categories found</div>
+                                    <tr>
+                                        <td colspan="5" class="border-bottom-0 text-center">
+                                            <div class="alert alert-warning">No products found</div>
+                                        </td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>

@@ -25,6 +25,17 @@ class ProductService
         return $products;
     }
 
+    public function searchProduct($query, $perpage = 10)
+    {
+        $products = DB::table('products')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->select('products.id', 'products.name', 'products.image_url', 'products.stock', 'products.description', 'products.price', 'categories.name as category_name')
+            ->where('products.name', 'like', '%' . $query . '%')
+            ->orWhere('categories.name', 'like', '%' . $query . '%')
+            ->paginate($perpage);
+        return $products;
+    }
+
     public function getProductById($id)
     {
         return Product::findOrFail($id);
@@ -32,21 +43,20 @@ class ProductService
 
     public function createProduct($data)
     {
-
-        // dd($data);
-
         return Product::create($data);
     }
 
     public function updateProduct($id, $data)
     {
         $product = Product::findOrFail($id);
-
-        if ($product->image_url) {
-            if (Storage::exists($product->image_url)) {
-                Storage::delete($product->image_url);
+        if (isset($data['image_url'])) {
+            if ($product->image_url !== null) {
+                handle_delete_file($product->image_url);
             }
         }
+        // dd($data);
+
+
         $product->update($data);
         return $product;
     }
@@ -54,6 +64,10 @@ class ProductService
     public function deleteProduct($id)
     {
         $product = Product::findOrFail($id);
+        if ($product->image_url !== null) {
+            handle_delete_file($product->image_url);
+        }
+
         $product->delete();
         return $product;
     }

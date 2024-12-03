@@ -1,7 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Storage;
 
-function createCodeItem($table, $code)
+function create_code_item($table, $code)
 {
     $count  = $table->count();
     if ($count == 0) {
@@ -19,4 +20,20 @@ function createCodeItem($table, $code)
         $number = $code . '-' . sprintf('%04s', $replace);
         return $number;
     }
+}
+function get_file_path_from_url($url)
+{
+    return str_replace(url('http://localhost:8000/storage/'), '', $url);
+}
+
+function handle_delete_file($path)
+{
+    $filePath = get_file_path_from_url($path);
+    if (Storage::disk('public')->exists($filePath)) {
+        Storage::disk('public')->delete($filePath);
+
+        return true;
+    }
+
+    return false;
 }

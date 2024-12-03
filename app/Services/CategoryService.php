@@ -8,13 +8,18 @@ use Illuminate\Support\Facades\DB;
 class CategoryService
 {
 
-    public function getAllCategories($perpage = 10)
+    public function getAllCategories($perpage = null)
     {
-        $categories = DB::table('categories')
-            ->leftJoin('products', 'categories.id', '=', 'products.category_id')
-            ->select('categories.id', 'categories.name', 'categories.description', DB::raw('count(products.id) as product_count'))
-            ->groupBy('categories.id', 'categories.name', 'categories.description')
-            ->paginate($perpage);
+        if ($perpage === null) {
+            $categories = Category::all();
+        } else {
+            $categories = DB::table('categories')
+                ->leftJoin('products', 'categories.id', '=', 'products.category_id')
+                ->select('categories.id', 'categories.name', 'categories.description', DB::raw('count(products.id) as product_count'))
+                ->groupBy('categories.id', 'categories.name', 'categories.description')
+                ->paginate($perpage);
+        }
+
         return $categories;
     }
 
