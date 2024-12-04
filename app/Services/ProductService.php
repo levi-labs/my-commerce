@@ -20,7 +20,7 @@ class ProductService
     {
         $products = DB::table('products')
             ->join('categories', 'products.category_id', '=', 'categories.id')
-            ->select('products.id', 'products.name', 'products.image_url', 'products.stock', 'products.description', 'products.price', 'categories.name as category_name')
+            ->select('products.id', 'products.name', 'products.image_url',  'products.description', 'products.price', 'categories.name as category_name')
             ->paginate($perpage);
         return $products;
     }
@@ -29,7 +29,7 @@ class ProductService
     {
         $products = DB::table('products')
             ->join('categories', 'products.category_id', '=', 'categories.id')
-            ->select('products.id', 'products.name', 'products.image_url', 'products.stock', 'products.description', 'products.price', 'categories.name as category_name')
+            ->select('products.id', 'products.name', 'products.image_url', 'products.description', 'products.price', 'categories.name as category_name')
             ->where('products.name', 'like', '%' . $query . '%')
             ->orWhere('categories.name', 'like', '%' . $query . '%')
             ->paginate($perpage);
@@ -54,8 +54,6 @@ class ProductService
                 handle_delete_file($product->image_url);
             }
         }
-        // dd($data);
-
 
         $product->update($data);
         return $product;

@@ -29,3 +29,8 @@ Route::controller(ProductController::class)->prefix('products')->group(function 
     Route::put('/update/{product}', 'update')->name('product.update');
     Route::delete('/delete/{product}', 'destroy')->name('product.destroy');
 });
+
+
+Route::get('/my-ecommerce', function () {
+    return view('frontend.index');
+});

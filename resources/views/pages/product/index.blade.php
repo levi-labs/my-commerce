@@ -63,7 +63,7 @@
                                         </td>
                                         <td class="border-bottom-0">
                                             <h6 class="fw-semibold mb-1">{{ $product->name }}</h6>
-                                            <span class="fw-normal">Stock : {{ $product->stock }}</span>
+                                            {{-- <span class="fw-normal">Stock : {{ $product->stock }}</span> --}}
                                         </td>
                                         <td class="border-bottom-0">
                                             <p class="mb-0 fw-normal">Rp {{ number_format($product->price, 0, ',', '.') }}

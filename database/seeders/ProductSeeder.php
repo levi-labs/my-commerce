@@ -21,7 +21,6 @@ class ProductSeeder extends Seeder
             'name' => 'Smartphone Samsung Galaxy',
             'description' => 'Smartphone canggih dengan layar AMOLED.',
             'price' => 5000000,
-            'stock' => 100,
             'image_url' => 'https://via.placeholder.com/200',
             'category_id' => $elektronik->id,
         ]);
@@ -30,7 +29,6 @@ class ProductSeeder extends Seeder
             'name' => 'T-shirt Casual',
             'description' => 'T-shirt kasual dengan desain modern.',
             'price' => 150000,
-            'stock' => 200,
             'image_url' => 'https://via.placeholder.com/200',
             'category_id' => $fashion->id,
         ]);

@@ -34,13 +34,13 @@ class ResponseHelper
         ], $code);
     }
 
-    public static function unauthorized($data, $message = null, $code = 401)
+    public static function unauthorized($message = null, $code = 401)
     {
         return response()->json([
             'status' => 'unauthorized',
             'statusCode' => $code,
             'message' => $message,
-            'data' => $data,
+
         ], $code);
     }
     public static function paginated($paginator, $message = null, $code = 200)
